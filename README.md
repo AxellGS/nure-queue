@@ -19,6 +19,11 @@ assert_eq!(Q.dequeue(), Some(1));
 
 API: `new` (`const` on the default build), `push`/`pop`, `enqueue`/`dequeue` (heapless-compatible aliases), `force_push` (ring overwrite), `len`/`is_empty`/`is_full`/`capacity`. Optional `std` feature adds thread yield to the backoff (pure spin on `no_std`); optional `loom` feature swaps atomics for model checking.
 
+## Bare-metal notes
+
+- Requires hardware CAS: Cortex-M3/M4/M7 (`thumbv7em`, checked in CI) work; Cortex-M0 (`thumbv6m`) has no CAS instruction and does not compile — same requirement as `heapless::mpmc`.
+- Lock-free, not wait-free: a high-priority ISR spinning on a slot held by a preempted lower-priority context livelocks. Safe across preemptible threads/cores and ISRs that don't preempt each other's slot holders; not a substitute for priority discipline in hard real-time paths.
+
 ## Verification
 
 - `tests/smoke.rs`: FIFO, full/empty, ring mode, `static` construction, drop accounting, 100k-op contention stress, 2-thread sum conservation.
