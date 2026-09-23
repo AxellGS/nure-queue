@@ -1,0 +1,34 @@
+[package]
+name = "nure-queue"
+version = "0.1.0"
+edition = "2024"
+rust-version = "1.85"
+description = "no_std, allocator-free, lock-free bounded MPMC queue (Vyukov) with const construction for static storage"
+license = "MIT OR Apache-2.0"
+
+[lib]
+name = "nure_queue"
+path = "src/lib.rs"
+
+[dependencies]
+loom = { version = "0.7", optional = true }
+
+[dev-dependencies]
+proptest = "1"
+criterion = "0.5"
+crossbeam-queue = "0.3"
+lfqueue = "0.8"
+
+[[bench]]
+name = "mpmc"
+harness = false
+
+[features]
+loom = ["dep:loom"]
+std = []
+
+[patch.crates-io]
+# Vendored upstream + 1-line fix (dead alias `const MODE: bool` ->
+# `usize` in third-party/lfqueue/src/lfstd.rs:92; zero behavior change).
+# File upstream as issue/PR; drop the patch when they fix it.
+lfqueue = { path = "third-party/lfqueue" }

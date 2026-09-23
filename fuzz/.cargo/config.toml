@@ -1,0 +1,10 @@
+# Local override for fuzz builds: the home ~/.cargo/config.toml sets an
+# aggressive release profile (fat LTO, panic=abort, strip) that breaks
+# sanitizer runtimes, which require unwinding and symbols. This file wins
+# over the home config for everything under fuzz/.
+[profile.release]
+opt-level = 3
+lto = false
+panic = "unwind"
+strip = false
+codegen-units = 1

@@ -1,0 +1,9 @@
+# Build artifacts at any level (crate root, fuzz/, miri runs).
+target/
+# Fuzz crash artifacts (committed corpus, if any, stays).
+fuzz/artifacts/
+# Libraries do not commit lockfiles; bins and CI re-resolve.
+Cargo.lock
+# Editor and OS noise.
+.vscode/
+.DS_Store
