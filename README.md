@@ -1,3 +1,5 @@
+[![CI](https://github.com/AxellGS/nure-queue/actions/workflows/ci.yml/badge.svg)](https://github.com/AxellGS/nure-queue/actions)
+
 # nure-queue
 
 `no_std`, allocator-free, lock-free bounded MPMC queue (Vyukov) with `const` construction for static storage.
