@@ -251,14 +251,11 @@ impl<T> Slot<T> {
 /// # Static initialization
 ///
 /// ```ignore
-/// // Default build (no `--features loom`): `Queue::new()` is `const`.
+/// // Default build: `Queue::new()` is `const`.
 /// static Q: Queue<u32, 8> = Queue::new();
-///
-/// // With `--features loom`: `Queue::new()` is not `const`.
-/// // Use `OnceLock` or `lazy_static` instead:
-/// // static Q: OnceLock<Queue<u32, 8>> = OnceLock::new();
-/// // Q.set(Queue::new()).unwrap();
 /// ```
+///
+/// With `--features loom`, `new()` is a regular function: construct at runtime.
 pub struct Queue<T, const N: usize> {
     head: Padded<AtomicIndex>,
     tail: Padded<AtomicIndex>,
