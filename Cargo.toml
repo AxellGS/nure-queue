@@ -6,6 +6,10 @@ rust-version = "1.85"
 description = "no_std, allocator-free, lock-free bounded MPMC queue (Vyukov) with const construction for static storage"
 license = "MIT OR Apache-2.0"
 repository = "https://github.com/AxellGS/nure-queue"
+documentation = "https://docs.rs/nure-queue"
+readme = "README.md"
+keywords = ["no_std", "lock-free", "mpmc", "queue", "embedded"]
+categories = ["concurrency", "data-structures", "embedded"]
 
 [lib]
 name = "nure_queue"
